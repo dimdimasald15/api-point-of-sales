@@ -2,78 +2,89 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Employee;
 use App\Models\User;
-use App\Http\Requests\UserLoginRequest;
-use App\Http\Requests\UserRegisterRequest;
-use App\Http\Requests\UserUpdateRequest;
-use App\Http\Resources\UserResource;
-use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 
-class UserController extends Controller
+
+abstract class UserController extends Controller
 {
-    public function Login(UserLoginRequest $request): UserResource
+    protected function createUser(array $data, string $role): User
     {
-        $data = $request->validated();
-        $user = User::where('username', $data['username'])->first();
+        $data_user = [
+            "firstname" => $data["firstname"],
+            "lastname" => $data["lastname"],
+            "phone_number" => $data["phone_number"],
+            "email" => $data["email"],
+            "address" => $data["address"],
+            "city" => $data["city"],
+            "province" => $data["province"],
+            "country" => $data["country"],
+            "postal_code" => $data["postal_code"],
+            "role" => $role,
+            "comments" => $data["comments"]
+        ];
 
-        if (!$user || !Hash::check($data['password'], $user->password)) {
-            throw new HttpResponseException(response([
-                "errors" => [
-                    "message" => [
-                        "username or password wrong",
-                    ]
-                ]
-            ], 401));
-        }
-
-        $user->token = Str::uuid()->toString();
-        $user->save();
-        return new UserResource($user);
+        return User::create($data_user);
     }
 
-    public function get(Request $request): UserResource
+    protected function updateUser(array $data, string $idUser)
     {
-        $user = Auth::user();
-        return new UserResource($user);
+        $attributes = [
+            'firstname',
+            'lastname',
+            'phone_number',
+            'email',
+            'address',
+            'postal_code',
+            'city',
+            'province',
+            'country',
+            'comments'
+        ];
+
+        $data_user = User::find($idUser);
+        foreach ($attributes as $attribute) {
+            if (isset($data[$attribute])) {
+                $data_user->{$attribute} = $data[$attribute];
+            }
+        }
+        $data_user->save();
     }
 
-    public function update(UserUpdateRequest $request): UserResource
+    protected function handleException(\Exception $e): JsonResponse
     {
-        $data = $request->validated();
-        $user = Auth::user();
-
-        if (isset($data['name'])) {
-            $user->name = $data['name'];
-        }
-
-        if (isset($data['password'])) {
-            $user->password = Hash::make($data['password']);
-        }
-
-        $user->save();
-
-        return new UserResource($user);
-    }
-
-    public function logout(Request $request): JsonResponse
-    {
-        // Mendapatkan pengguna yang sedang terautentikasi
-        $user = Auth::user();
-
-        // Menghapus token pengguna dengan mengatur nilainya ke null
-        $user->token = null;
-
-        // Menyimpan perubahan pada pengguna ke database
-        $user->save();
-
-        // Mengembalikan respons JSON dengan data true dan status kode 200 (OK)
+        DB::rollBack();
         return response()->json([
-            "data" => true
-        ])->setStatusCode(200);
+            "errors" => [
+                "message" => [
+                    $e->getMessage()
+                ]
+            ]
+        ], 500);
+    }
+
+    protected function abortIfUserExists(array $data, string $field, string $message): void
+    {
+        $model = $field === "username" ? Employee::class : User::class;
+
+        if ($model::where($field, $data[$field])->exists()) {
+            abort(400, json_encode([
+                "errors" => [
+                    $field => [$message]
+                ]
+            ]));
+        }
+    }
+    protected function abortIfUpdateUserExists(array $data, string $field, string $message, string $idUser): void
+    {
+        if (isset($data['email']) && User::where('email', $data['email'])->where('id', '!=', $idUser)->exists()) {
+            abort(400, json_encode([
+                "errors" => [
+                    $field => [$message]
+                ]
+            ]));
+        }
     }
 }

@@ -1,0 +1,339 @@
+{
+    "openapi": "3.0.2",
+    "info": {
+        "title": "Customer API",
+        "description": "Customer API",
+        "version": "1.0.0"
+    },
+    "servers": [{ "url": "http://localhost:8000" }],
+    "paths": {
+        "/api/customers": {
+            "post": {
+                "description": "Create new customer",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header"
+                    }
+                ],
+                "requestBody": {
+                    "description": "Create new customer",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "firstname": {
+                                        "type": "string"
+                                    },
+                                    "lastname": {
+                                        "type": "string"
+                                    },
+                                    "phone_number": {
+                                        "type": "string"
+                                    },
+                                    "email": { "type": "string" },
+                                    "address": {
+                                        "type": "string"
+                                    },
+                                    "postal_code": {
+                                        "type": "string"
+                                    },
+                                    "city": { "type": "string" },
+                                    "province": { "type": "string" },
+                                    "country": { "type": "string" },
+                                    "comments": { "type": "string" },
+                                    "account_number": { "type": "string" },
+                                    "taxable": { "type": "boolean" }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Success create customer",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "type": "number"
+                                                },
+                                                "firstname": {
+                                                    "type": "string"
+                                                },
+                                                "lastname": {
+                                                    "type": "string"
+                                                },
+                                                "phone_number": {
+                                                    "type": "string"
+                                                },
+                                                "email": { "type": "string" },
+                                                "address": {
+                                                    "type": "string"
+                                                },
+                                                "postal_code": {
+                                                    "type": "string"
+                                                },
+                                                "city": { "type": "string" },
+                                                "province": {
+                                                    "type": "string"
+                                                },
+                                                "country": { "type": "string" },
+                                                "comments": {
+                                                    "type": "string"
+                                                },
+                                                "account_number": {
+                                                    "type": "string"
+                                                },
+                                                "taxable": { "type": "boolean" }
+                                            }
+                                        },
+                                        "errors": { "type": "object" }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "description": "Get list customers",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success get list customers",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "number"
+                                                    },
+                                                    "firstname": {
+                                                        "type": "string"
+                                                    },
+                                                    "lastname": {
+                                                        "type": "string"
+                                                    },
+                                                    "phone_number": {
+                                                        "type": "string"
+                                                    },
+                                                    "email": {
+                                                        "type": "string"
+                                                    },
+                                                    "address": {
+                                                        "type": "string"
+                                                    },
+                                                    "postal_code": {
+                                                        "type": "string"
+                                                    },
+                                                    "city": {
+                                                        "type": "string"
+                                                    },
+                                                    "province": {
+                                                        "type": "string"
+                                                    },
+                                                    "country": {
+                                                        "type": "string"
+                                                    },
+                                                    "comments": {
+                                                        "type": "string"
+                                                    },
+                                                    "account_number": {
+                                                        "type": "string"
+                                                    },
+                                                    "taxable": {
+                                                        "type": "boolean"
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "errors": { "type": "object" }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/customers/{idCustomer}": {
+            "get": {
+                "description": "Get detail customer",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header"
+                    },
+                    {
+                        "name": "idCustomer",
+                        "in": "path"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success get detail customer",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "type": "number"
+                                                },
+                                                "firstname": {
+                                                    "type": "string"
+                                                },
+                                                "lastname": {
+                                                    "type": "string"
+                                                },
+                                                "phone_number": {
+                                                    "type": "string"
+                                                },
+                                                "email": { "type": "string" },
+                                                "address": {
+                                                    "type": "string"
+                                                },
+                                                "postal_code": {
+                                                    "type": "string"
+                                                },
+                                                "city": { "type": "string" },
+                                                "province": {
+                                                    "type": "string"
+                                                },
+                                                "country": { "type": "string" },
+                                                "comments": {
+                                                    "type": "string"
+                                                },
+                                                "account_number": {
+                                                    "type": "string"
+                                                },
+                                                "taxable": { "type": "boolean" }
+                                            }
+                                        },
+                                        "errors": { "type": "object" }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "description": "Update customer by id",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header"
+                    },
+                    {
+                        "name": "idCustomer",
+                        "in": "path"
+                    }
+                ],
+                "requestBody": {
+                    "description": "Update customer by id",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "firstname": {
+                                        "type": "string"
+                                    },
+                                    "lastname": {
+                                        "type": "string"
+                                    },
+                                    "phone_number": {
+                                        "type": "string"
+                                    },
+                                    "email": { "type": "string" },
+                                    "address": {
+                                        "type": "string"
+                                    },
+                                    "postal_code": {
+                                        "type": "string"
+                                    },
+                                    "city": { "type": "string" },
+                                    "province": { "type": "string" },
+                                    "country": { "type": "string" },
+                                    "comments": { "type": "string" },
+                                    "account_number": { "type": "string" },
+                                    "taxable": { "type": "boolean" }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success update customer by id",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "firstname": {
+                                                    "type": "string"
+                                                },
+                                                "lastname": {
+                                                    "type": "string"
+                                                },
+                                                "phone_number": {
+                                                    "type": "string"
+                                                },
+                                                "email": { "type": "string" },
+                                                "address": {
+                                                    "type": "string"
+                                                },
+                                                "postal_code": {
+                                                    "type": "string"
+                                                },
+                                                "city": { "type": "string" },
+                                                "province": {
+                                                    "type": "string"
+                                                },
+                                                "country": { "type": "string" },
+                                                "comments": {
+                                                    "type": "string"
+                                                },
+                                                "account_number": {
+                                                    "type": "string"
+                                                },
+                                                "taxable": { "type": "boolean" }
+                                            }
+                                        },
+                                        "errors": { "type": "object" }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

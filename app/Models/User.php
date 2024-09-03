@@ -2,12 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class User extends Model implements Authenticatable
+class User extends Model
 {
     use HasFactory;
 
@@ -18,42 +17,37 @@ class User extends Model implements Authenticatable
     public $incrementing = true; // Apakah primary key auto-increment
 
     // Kolom yang dapat diisi secara massal
-    protected $fillable = ['username', 'name', 'password'];
+    protected $fillable = [
+        'firstname',
+        'lastname',
+        'phone_number',
+        'email',
+        'role',
+        'address',
+        'city',
+        'province',
+        'country',
+        'postal_code',
+        'comments',
+        'created_at',
+        'updated_at'
+    ];
 
-    // Definisi relasi one-to-many dengan model Contact
-    // public function contacts(): HasMany
-    // {
-    //     return $this->hasMany(Contact::class, "user_id", "id");
-    // }
-
-    // Metode untuk memenuhi kontrak Authenticatable
-    public function getAuthIdentifierName()
+    // Definisi relasi one-to-many dengan model employee
+    public function employee(): BelongsTo
     {
-        return 'username'; // Nama kolom yang digunakan sebagai identifier
+        return $this->belongsTo(Employee::class, "user_id", "id");
     }
 
-    public function getAuthIdentifier()
+    // Definisi relasi one-to-many dengan model customer
+    public function customer(): BelongsTo
     {
-        return $this->username; // Nilai identifier yang digunakan
+        return $this->belongsTo(Customer::class, "user_id", "id");
     }
 
-    public function getAuthPassword()
+    // Definisi relasi one-to-many dengan model supplier
+    public function supplier(): BelongsTo
     {
-        return $this->password; // Nilai password yang digunakan untuk autentikasi
-    }
-
-    public function getRememberToken()
-    {
-        return $this->token; // Nilai token "remember me"
-    }
-
-    public function setRememberToken($value)
-    {
-        $this->token = $value; // Mengatur nilai token "remember me"
-    }
-
-    public function getRememberTokenName()
-    {
-        return 'token'; // Nama kolom yang digunakan untuk token "remember me"
+        return $this->belongsTo(Supplier::class, "user_id", "id");
     }
 }

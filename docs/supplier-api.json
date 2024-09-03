@@ -1,0 +1,331 @@
+{
+    "openapi": "3.0.2",
+    "info": {
+        "title": "Supplier API",
+        "description": "Supplier API",
+        "version": "1.0.0"
+    },
+    "servers": [{ "url": "http://localhost:8000" }],
+    "paths": {
+        "/api/suppliers": {
+            "post": {
+                "description": "Create new supplier",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header"
+                    }
+                ],
+                "requestBody": {
+                    "description": "Create new supplier",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "firstname": {
+                                        "type": "string"
+                                    },
+                                    "lastname": {
+                                        "type": "string"
+                                    },
+                                    "phone_number": {
+                                        "type": "string"
+                                    },
+                                    "email": { "type": "string" },
+                                    "address": {
+                                        "type": "string"
+                                    },
+                                    "postal_code": {
+                                        "type": "string"
+                                    },
+                                    "city": { "type": "string" },
+                                    "province": { "type": "string" },
+                                    "country": { "type": "string" },
+                                    "comments": { "type": "string" },
+                                    "account_number": { "type": "string" }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Success create supplier",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "type": "number"
+                                                },
+                                                "firstname": {
+                                                    "type": "string"
+                                                },
+                                                "lastname": {
+                                                    "type": "string"
+                                                },
+                                                "phone_number": {
+                                                    "type": "string"
+                                                },
+                                                "email": { "type": "string" },
+                                                "address": {
+                                                    "type": "string"
+                                                },
+                                                "postal_code": {
+                                                    "type": "string"
+                                                },
+                                                "city": { "type": "string" },
+                                                "province": {
+                                                    "type": "string"
+                                                },
+                                                "country": { "type": "string" },
+                                                "comments": {
+                                                    "type": "string"
+                                                },
+                                                "account_number": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        },
+                                        "errors": { "type": "object" }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "description": "Get list suppliers",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success get list suppliers",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "number"
+                                                    },
+                                                    "firstname": {
+                                                        "type": "string"
+                                                    },
+                                                    "lastname": {
+                                                        "type": "string"
+                                                    },
+                                                    "phone_number": {
+                                                        "type": "string"
+                                                    },
+                                                    "email": {
+                                                        "type": "string"
+                                                    },
+                                                    "address": {
+                                                        "type": "string"
+                                                    },
+                                                    "postal_code": {
+                                                        "type": "string"
+                                                    },
+                                                    "city": {
+                                                        "type": "string"
+                                                    },
+                                                    "province": {
+                                                        "type": "string"
+                                                    },
+                                                    "country": {
+                                                        "type": "string"
+                                                    },
+                                                    "comments": {
+                                                        "type": "string"
+                                                    },
+                                                    "account_number": {
+                                                        "type": "string"
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "errors": { "type": "object" }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/suppliers/{idSupplier}": {
+            "get": {
+                "description": "Get detail supplier",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header"
+                    },
+                    {
+                        "name": "idSupplier",
+                        "in": "path"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success get detail supplier",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "type": "number"
+                                                },
+                                                "firstname": {
+                                                    "type": "string"
+                                                },
+                                                "lastname": {
+                                                    "type": "string"
+                                                },
+                                                "phone_number": {
+                                                    "type": "string"
+                                                },
+                                                "email": { "type": "string" },
+                                                "address": {
+                                                    "type": "string"
+                                                },
+                                                "postal_code": {
+                                                    "type": "string"
+                                                },
+                                                "city": { "type": "string" },
+                                                "province": {
+                                                    "type": "string"
+                                                },
+                                                "country": { "type": "string" },
+                                                "comments": {
+                                                    "type": "string"
+                                                },
+                                                "account_number": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        },
+                                        "errors": { "type": "object" }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "description": "Update supplier by id",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header"
+                    },
+                    {
+                        "name": "idSupplier",
+                        "in": "path"
+                    }
+                ],
+                "requestBody": {
+                    "description": "Update supplier by id",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "firstname": {
+                                        "type": "string"
+                                    },
+                                    "lastname": {
+                                        "type": "string"
+                                    },
+                                    "phone_number": {
+                                        "type": "string"
+                                    },
+                                    "email": { "type": "string" },
+                                    "address": {
+                                        "type": "string"
+                                    },
+                                    "postal_code": {
+                                        "type": "string"
+                                    },
+                                    "city": { "type": "string" },
+                                    "province": { "type": "string" },
+                                    "country": { "type": "string" },
+                                    "comments": { "type": "string" },
+                                    "account_number": { "type": "string" }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success update supplier by id",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "firstname": {
+                                                    "type": "string"
+                                                },
+                                                "lastname": {
+                                                    "type": "string"
+                                                },
+                                                "phone_number": {
+                                                    "type": "string"
+                                                },
+                                                "email": { "type": "string" },
+                                                "address": {
+                                                    "type": "string"
+                                                },
+                                                "postal_code": {
+                                                    "type": "string"
+                                                },
+                                                "city": { "type": "string" },
+                                                "province": {
+                                                    "type": "string"
+                                                },
+                                                "country": { "type": "string" },
+                                                "comments": {
+                                                    "type": "string"
+                                                },
+                                                "account_number": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        },
+                                        "errors": { "type": "object" }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
